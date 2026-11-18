@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ARCHIVO CONFIDENCIAL // Monitos en apuros</title>
+  <style>
+    /* 1. TIPOGRAFÍA HACKED: Verifica que el nombre coincida con tu archivo .ttf */
+    @font-face {
+      font-family: 'Hacked';
+      src: url('Hacked-KerX.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    :root {
+      --bg-color: #050505;
+      --card-bg: #0f1110;
+      --accent: #00ff66;      /* Verde terminal detective */
+      --danger: #ff3b3b;      /* Rojo alerta / sospechoso */
+      --warning: #ffcc00;     /* Amarillo grabación / evidencia */
+      --text-main: #e0e0e0;
+      --text-muted: #8a948e;
+      --border: #1f2923;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: 'Courier New', Courier, monospace;
+      line-height: 1.65;
+      padding: 20px 15px 60px;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    /* Encabezado */
+    header {
+      text-align: center;
+      border-bottom: 1px dashed var(--accent);
+      padding-bottom: 20px;
+      margin-bottom: 25px;
+    }
+
+    .top-tag {
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-family: 'Hacked', 'Courier New', monospace;
+      font-size: 2.8rem;
+      color: #ffffff;
+      letter-spacing: 2px;
+      text-shadow: 0 0 10px rgba(0, 255, 102, 0.35);
+      margin-bottom: 5px;
+    }
+
+    /* Cajas tipo expediente */
+    .dossier-box {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      padding: 18px;
+      margin-bottom: 24px;
+      border-radius: 4px;
+    }
+
+    .dossier-box.alert {
+      border-left-color: var(--danger);
+    }
+
+    .dossier-box.audio-log {
+      border-left-color: var(--warning);
+    }
+
+    h2 {
+      font-family: 'Hacked', 'Courier New', monospace;
+      font-size: 1.45rem;
+      letter-spacing: 1.5px;
+      margin-bottom: 14px;
+      color: var(--accent);
+    }
+
+    .dossier-box.alert h2 {
+      color: var(--danger);
+    }
+
+    .dossier-box.audio-log h2 {
+      color: var(--warning);
+    }
+
+    p {
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Galería de sospechosos / desaparecidos */
+    .evidence-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-top: 18px;
+    }
+
+    @media (max-width: 500px) {
+      .evidence-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .polaroid {
+      background: #161817;
+      border: 1px solid #2c332f;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .polaroid img {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      display: block;
+      background: #000;
+      border: 1px solid #222;
+      margin-bottom: 8px;
+    }
+
+    .polaroid .label {
+      font-size: 0.8rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .label.missing { color: var(--accent); }
+    .label.suspect { color: var(--danger); }
+
+    /* Estilos de las bitácoras de audio */
+    .log-entry {
+      background: #080908;
+      border: 1px solid #1d211f;
+      padding: 12px 14px;
+      margin-bottom: 12px;
+      border-radius: 3px;
+    }
+
+    .timestamp {
+      color: var(--warning);
+      font-weight: bold;
+      font-size: 0.85rem;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .quote {
+      font-style: italic;
+      color: #d4dcd7;
+    }
+
+    .sfx {
+      text-align: center;
+      color: var(--danger);
+      font-weight: bold;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      margin: 14px 0;
+    }
+
+    .end-comm {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      letter-spacing: 3px;
+      border-top: 1px dashed #2b332e;
+      padding-top: 12px;
+      margin-top: 16px;
+    }
+
+    /* Caja del mensaje codificado con espacios para rellenar */
+    .coded-message-box {
+      background: #060807;
+      border: 1px dashed var(--accent);
+      padding: 18px;
+      margin: 16px 0 22px;
+      font-size: 0.98rem;
+      line-height: 2.1;
+      color: #ffffff;
+    }
+
+    .blank-slot {
+      background: #000000;
+      border: none;
+      border-bottom: 2px solid var(--accent);
+      color: var(--accent);
+      font-family: 'Courier New', Courier, monospace;
+      font-weight: bold;
+      font-size: 0.95rem;
+      text-align: center;
+      width: 125px;
+      padding: 2px 6px;
+      margin: 0 3px;
+      outline: none;
+    }
+
+    .blank-slot::placeholder {
+      color: rgba(0, 255, 102, 0.55);
+      font-weight: normal;
+    }
+
+    .blank-slot:focus {
+      background: rgba(0, 255, 102, 0.08);
+    }
+
+    /* Lista de pistas */
+    .clues-list {
+      list-style: none;
+      margin-top: 14px;
+    }
+
+    .clues-list li {
+      background: #0b0d0c;
+      border: 1px solid var(--border);
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      border-radius: 4px;
+      font-size: 0.92rem;
+    }
+
+    .clue-num {
+      color: var(--accent);
+      font-weight: bold;
+      margin-right: 6px;
+    }
+
+    .end-file {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="top-tag">// AGENCIA DE INTELIGENCIA DE CIUDAD MONITO //</div>
+    <h1>Monitos en apuros</h1>
+  </header>
+
+  <!-- TEXTO CONTEXTUALIZADOR -->
+  <section class="dossier-box">
+    <h2>TRANSMISIÓN ENTRANTE</h2>
+    <p>Es un gusto volver a estar en contacto contigo, <strong>Investigadora Monita</strong>.</p>
+    <p>Lamentablemente, no traemos muy buenas noticias sobre Ciudad Monito; últimamente han surgido una nueva serie de crímenes sin resolver, te los dejo a continuación:</p>
+  </section>
+
+  <!-- CASO #1 Y FOTOS -->
+  <section class="dossier-box alert">
+    <h2>Caso #1: Desaparición de Alias Copito [ 10/10/2026 ]</h2>
+    <p>Se reporta la desaparición de <strong>Alias Copito</strong> mientras adelantaba una misión de espionaje en las instalaciones de <strong>Monito Malvado</strong>. Su última comunicación fue el <strong>10/10/2026 a las 26:11</strong>.</p>
+    <p>Actualmente nos encontrábamos investigando debido a actividad sospechosa de Monito Malvado, fue hallado comprando croquetas del exterior con fines de introducirlas al mercado negro de Ciudad Monito.</p>
+
+    <!-- FOTOS: Reemplaza 'copito.jpg' y 'malvado.jpg' si tus archivos tienen otro nombre -->
+    <div class="evidence-grid">
+      <div class="polaroid">
+        <img src="copito.jpg" alt="Alias Copito" />
+        <div class="label missing">[ DESAPARECIDA ] Alias Copito</div>
+      </div>
+      <div class="polaroid">
+        <img src="malvado.jpg" alt="Monito Malvado" />
+        <div class="label suspect">[ SOSPECHOSO ] Monito Malvado</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HALLAZGOS DE ALIAS COPITO -->
+  <section class="dossier-box audio-log">
+    <h2>Hallazgos comunicados por Alias Copito antes de su desaparición:</h2>
+
+    <div class="log-entry">
+      <span class="timestamp">[18/11/2026: 19:45]</span>
+      <p class="quote">“ … He logrado ingresar a la guarida de Monito Malvado … Habían demasiados guardias en la entrada … Logré escabullirme por un ducto de ventilación, miau”</p>
+    </div>
+
+    <div class="log-entry">
+      <span class="timestamp">[18/11/2026: 21:18]</span>
+      <p class="quote">“ … Encontré el sitio donde almacenan las croquetas para gato … tienen un olor bastante apetitoso, miau … no hay guardias a la vista, creo que no hay problema si tomo algunas …”</p>
+    </div>
+
+    <div class="sfx">*SE ESCUCHAN GUARDIAS ENTRANDO*</div>
+
+    <div class="log-entry">
+      <span class="timestamp">[18/11/2026: 21:32]</span>
+      <p class="quote">“ … salí corriendo y terminé en un callejón sin salida, me encuentro rodeada por más de 50 guardias … las croquetas son altamente adictivas, miau … no creo poder salir a salvo de esta misión …”</p>
+    </div>
+
+    <div class="sfx">*VOZ IRRECONOCIBLE*</div>
+
+    <div class="log-entry">
+      <p class="quote">“ … ¡muajaja! caíste en mi trampa …”</p>
+    </div>
+
+    <div class="end-comm">FIN DE LA COMUNICACIÓN</div>
+  </section>
+
+  <!-- MISIÓN Y ACERTIJO CODIFICADO -->
+  <section class="dossier-box">
+    <h2>MISIÓN ASIGNADA // FASE 1</h2>
+    <p>Requerimos urgentemente de tu ayuda, <strong>Investigadora Monita</strong>, para dar con el paradero de Alias Copito y capturar a Monito Malvado.</p>
+    <p>Tu primera misión será visitar el museo más cercano a tu ubicación actual y completar el siguiente acertijo que hemos codificado para que solo tú puedas leerlo:</p>
+
+    <!-- MENSAJE CODIFICADO CON ESPACIOS INTERACTIVOS -->
+    <div class="coded-message-box">
+      Misión cumplida, miaumorcito. Los monitos de la Agencia de Inteligencia de Ciudad Monito han logrado obtener nueva información acerca del <input type="text" class="blank-slot" placeholder="[ 1 ]" /> de Monito Malvado. Se espera encontrarlo en el <input type="text" class="blank-slot" placeholder="[ 2 ]" /> el 26 de Noviembre. La próxima semana nos pondremos en contacto para asignarte tu nueva misión.
+    </div>
+
+    <!-- LISTA DE PISTAS -->
+    <ul class="clues-list">
+      <li><span class="clue-num">[1]</span> Nombre de la obra: Línea X, palabra X</li>
+      <li><span class="clue-num">[2]</span> Nombre de la obra: Cantidad de personas</li>
+    </ul>
+
+    <div class="end-file">Fin</div>
+  </section>
+
+</body>
+</html>
